@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
 import { Icon } from 'leaflet'
 import { useQuery } from 'react-query'
@@ -27,30 +26,36 @@ const Countries = () => {
 
   const customIcon = new Icon({
     iconUrl: require('images/location-pin.png'),
-    iconSize: [20, 20]
+    iconSize: [20, 20],
   })
 
   return (
-    <MapContainer style={{ height: 500, width: '100%' }} center={[20, 77]} zoom={7}>
-      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+    <div className="h-96 w-9/12 flex mx-auto mt-10">
+      <MapContainer
+        style={{ height: '100%', width: '100%' }}
+        center={[20, 77]}
+        zoom={3}
+      >
+        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
-      {data?.map((country) => (
-        <Marker
-          key={country.countryInfo._id}
-          position={[country.countryInfo.lat, country.countryInfo.long]}
-          icon={customIcon}
-        >
-          <Popup>
-            <div>
-              <h3>{country.country}</h3>
-              <p>Total Cases: {country.cases}</p>
-              <p>Total Deaths: {country.deaths}</p>
-              <p>Total Recovered: {country.recovered}</p>
-            </div>
-          </Popup>
-        </Marker>
-      ))}
-    </MapContainer>
+        {data?.map((country) => (
+          <Marker
+            key={country.countryInfo._id}
+            position={[country.countryInfo.lat, country.countryInfo.long]}
+            icon={customIcon}
+          >
+            <Popup>
+              <div>
+                <h3>{country.country}</h3>
+                <p>Total Cases: {country.cases}</p>
+                <p>Total Deaths: {country.deaths}</p>
+                <p>Total Recovered: {country.recovered}</p>
+              </div>
+            </Popup>
+          </Marker>
+        ))}
+      </MapContainer>
+    </div>
   )
 }
 
